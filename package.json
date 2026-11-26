@@ -1,0 +1,22 @@
+{
+  "name": "uneb-dch-feira-agroecologica",
+  "version": "1.0.0",
+  "description": "Landing page do Projeto de Extensão da Feira Agroecológica - UNEB Campus V / DCH",
+  "main": "js/main.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w"
+  },
+  "keywords": [
+    "uneb",
+    "dch",
+    "feira-agroecologica",
+    "extensao",
+    "administracao"
+  ],
+  "author": "Colegiado de Administração - UNEB Campus V",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
