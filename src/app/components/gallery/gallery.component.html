@@ -1,0 +1,55 @@
+<section id="galeria" class="py-5 bg-white border-top border-bottom">
+  <div class="container py-4">
+    <div class="row text-center justify-content-center">
+      <div class="col-lg-8 section-title-wrap">
+        <span class="section-tag green">Registros Visuais</span>
+        <h2 class="section-title">Galeria de Fotos do Projeto</h2>
+        <div class="section-bar center"></div>
+        <p class="section-subtitle">
+          Momentos marcantes da feira no Campus V, das oficinas de capacitação, do estande na 12ª FEMPA e dos produtos artesanais. Clique em qualquer foto para ampliar.
+        </p>
+      </div>
+    </div>
+
+    <!-- Filtros da Galeria -->
+    <div class="gallery-filter-nav">
+      <button class="btn gallery-filter-btn" 
+              [class.btn-primary]="activeCategory() === 'all'"
+              [class.btn-outline-primary]="activeCategory() !== 'all'"
+              (click)="setCategory('all')">
+        <i class="bi bi-grid-fill me-1"></i> Todas as Fotos
+      </button>
+      <button class="btn gallery-filter-btn" 
+              [class.btn-primary]="activeCategory() === 'feira'"
+              [class.btn-outline-primary]="activeCategory() !== 'feira'"
+              (click)="setCategory('feira')">
+        <i class="bi bi-shop me-1"></i> Feira & Estande FEMPA
+      </button>
+      <button class="btn gallery-filter-btn" 
+              [class.btn-primary]="activeCategory() === 'oficinas'"
+              [class.btn-outline-primary]="activeCategory() !== 'oficinas'"
+              (click)="setCategory('oficinas')">
+        <i class="bi bi-people-fill me-1"></i> Oficinas & Capacitação
+      </button>
+      <button class="btn gallery-filter-btn" 
+              [class.btn-primary]="activeCategory() === 'produtos'"
+              [class.btn-outline-primary]="activeCategory() !== 'produtos'"
+              (click)="setCategory('produtos')">
+        <i class="bi bi-basket-fill me-1"></i> Produtos & Artesanato
+      </button>
+    </div>
+
+    <!-- Grid de Fotos -->
+    <div class="gallery-grid">
+      @for (item of filteredItems(); track item.id) {
+        <div class="gallery-card" (click)="openLightbox(item)" tabindex="0" (keydown.enter)="openLightbox(item)">
+          <img [src]="item.src" [alt]="item.alt" loading="lazy">
+          <div class="gallery-zoom-badge"><i class="bi bi-arrows-fullscreen"></i></div>
+          <div class="gallery-card-overlay">
+            <p class="gallery-card-caption">{{ item.caption }}</p>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,19 @@
+<section class="metrics-section">
+  <div class="container">
+    <div class="metrics-card-grid">
+      @for (item of metrics(); track $index) {
+        <div class="metric-item" [class.green]="item.isGreen">
+          <div class="metric-icon">
+            <i class="bi" [class]="item.icon"></i>
+          </div>
+          <div>
+            <div class="metric-number">
+              {{ item.prefix || '' }}{{ displayValues()[$index] }}{{ item.suffix || '' }}
+            </div>
+            <div class="metric-label">{{ item.label }}</div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

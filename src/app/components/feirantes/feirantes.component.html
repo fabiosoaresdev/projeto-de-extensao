@@ -1,0 +1,42 @@
+<section id="feirantes" class="py-5">
+  <div class="container py-4">
+    <div class="row text-center justify-content-center">
+      <div class="col-lg-8 section-title-wrap">
+        <span class="section-tag">Rede de Produtores</span>
+        <h2 class="section-title">Quem Faz a Feira Acontecer</h2>
+        <div class="section-bar center"></div>
+        <p class="section-subtitle">
+          Conheça as organizações coletivas e os empreendedores que trazem sabor, saúde, criatividade e economia solidária para a UNEB Campus V.
+        </p>
+      </div>
+    </div>
+
+    <!-- 4 Organizações Coletivas -->
+    <h4 class="fw-bold text-navy mb-3"><i class="bi bi-diagram-3-fill text-primary me-2"></i>Organizações Coletivas</h4>
+    <div class="row g-4">
+      @for (org of organizations(); track org.name) {
+        <div class="col-md-6 col-lg-3">
+          <div class="org-card">
+            <span class="org-card-origin">{{ org.origin }} · {{ org.since }}</span>
+            <h4>{{ org.name }}</h4>
+            <p>{{ org.description }}</p>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- 8 Empreendedores -->
+    <div class="card border-0 shadow-sm rounded-4 mt-5 p-4 bg-white">
+      <h4 class="fw-bold text-navy mb-2"><i class="bi bi-person-hearts text-success me-2"></i>Empreendedores e Especialidades</h4>
+      <p class="text-muted small">Profissionais e famílias participantes da Feira Agroecológica que você encontra quinzenalmente no Campus V:</p>
+
+      <div class="entrepreneurs-pills">
+        @for (emp of entrepreneurs(); track emp.name) {
+          <div class="entrepreneur-pill">
+            <strong>{{ emp.name }}</strong> {{ emp.specialty }}
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>

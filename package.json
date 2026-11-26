@@ -1,22 +1,32 @@
 {
-  "name": "uneb-dch-feira-agroecologica",
-  "version": "1.0.0",
-  "description": "Landing page do Projeto de Extensão da Feira Agroecológica - UNEB Campus V / DCH",
-  "main": "js/main.js",
+  "name": "feira-agroecologica",
+  "version": "0.0.0",
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w"
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test"
   },
-  "keywords": [
-    "uneb",
-    "dch",
-    "feira-agroecologica",
-    "extensao",
-    "administracao"
-  ],
-  "author": "Colegiado de Administração - UNEB Campus V",
-  "license": "ISC",
+  "private": true,
+  "packageManager": "npm@12.1.0",
+  "dependencies": {
+    "@angular/common": "^22.2.0",
+    "@angular/compiler": "^22.2.0",
+    "@angular/core": "^22.2.0",
+    "@angular/forms": "^22.2.0",
+    "@angular/platform-browser": "^22.2.0",
+    "@angular/router": "^22.2.0",
+    "bootstrap": "^5.3.9",
+    "bootstrap-icons": "^1.13.2",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0"
+  },
   "devDependencies": {
-    "typescript": "^5.0.0"
+    "@angular/build": "^22.2.0",
+    "@angular/cli": "^22.2.0",
+    "@angular/compiler-cli": "^22.2.0",
+    "prettier": "^3.8.1",
+    "typescript": "~6.0.2"
   }
 }

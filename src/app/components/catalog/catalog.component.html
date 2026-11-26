@@ -1,0 +1,32 @@
+<section id="catalogo" class="catalog-section">
+  <div class="container">
+    <div class="row align-items-end justify-content-between mb-4">
+      <div class="col-lg-7">
+        <span class="section-tag">Publicação Oficial</span>
+        <h2 class="section-title mb-2">Folheie o Catálogo da Feira</h2>
+        <div class="section-bar"></div>
+        <p class="text-muted mb-0">
+          Conheça as histórias, métodos de cultivo, artesanatos e canais diretos de contato dos produtores e organizações coletivas. Clique em qualquer página para ampliar.
+        </p>
+      </div>
+      <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+        <button type="button" class="btn btn-primary rounded-pill px-4 fw-semibold me-2 shadow-sm" (click)="downloadCatalog()">
+          <i class="bi bi-download me-1"></i> Baixar Catálogo (PDF)
+        </button>
+        <a href="https://instagram.com/feiraagrouneb" target="_blank" rel="noopener noreferrer" class="btn btn-outline-success rounded-pill px-3 fw-semibold">
+          <i class="bi bi-instagram me-1"></i> @feiraagrouneb
+        </a>
+      </div>
+    </div>
+
+    <!-- Tira de páginas do catálogo com lightbox -->
+    <div class="catalog-strip">
+      @for (page of catalogPages(); track page.pageNumber; let i = $index) {
+        <div class="catalog-page-item" (click)="openPage(i)" tabindex="0" (keydown.enter)="openPage(i)">
+          <img [src]="page.src" [alt]="page.title" loading="lazy">
+          <div class="page-label">{{ page.label }}</div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

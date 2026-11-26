@@ -1,0 +1,66 @@
+<section id="oficinas" class="py-5 bg-white border-top border-bottom">
+  <div class="container py-4">
+    <div class="row text-center justify-content-center">
+      <div class="col-lg-8 section-title-wrap">
+        <span class="section-tag green">Capacitação Prática</span>
+        <h2 class="section-title">As Oficinas de Capacitação</h2>
+        <div class="section-bar center"></div>
+        <p class="section-subtitle">
+          Espaço horizontal de trocas de experiências, onde o conhecimento acadêmico de Administração se uniu aos saberes tradicionais dos produtores rurais e artesãos.
+        </p>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      @for (workshop of workshops(); track workshop.id) {
+        <div class="col-lg-6">
+          <article class="workshop-card">
+            <div class="workshop-card-header">
+              <span class="workshop-date-badge"><i class="bi bi-calendar-event me-1"></i> {{ workshop.date }}</span>
+              <h3>{{ workshop.title }}</h3>
+              <p class="workshop-subtitle">{{ workshop.subtitle }}</p>
+            </div>
+
+            <div class="workshop-card-body">
+              @for (p of workshop.description; track $index) {
+                <p>{{ p }}</p>
+              }
+
+              @if (workshop.steps) {
+                <div class="my-3">
+                  <span class="fw-semibold text-navy small d-block mb-1">Fluxo Prático de Pré-Venda:</span>
+                  <ul class="steps-list">
+                    @for (step of workshop.steps; track $index) {
+                      <li>{{ step }}</li>
+                    }
+                  </ul>
+                </div>
+              }
+            </div>
+
+            <!-- Fotos da Oficina -->
+            <div class="workshop-photos">
+              <figure class="workshop-main-photo" 
+                      (click)="openImage(workshop.mainPhoto.src, workshop.mainPhoto.alt, workshop.mainPhoto.caption)"
+                      tabindex="0"
+                      (keydown.enter)="openImage(workshop.mainPhoto.src, workshop.mainPhoto.alt, workshop.mainPhoto.caption)">
+                <img [src]="workshop.mainPhoto.src" [alt]="workshop.mainPhoto.alt" loading="lazy">
+                <figcaption>{{ workshop.mainPhoto.caption }}</figcaption>
+              </figure>
+              <div class="workshop-sub-photos">
+                @for (sub of workshop.subPhotos; track $index) {
+                  <figure (click)="openImage(sub.src, sub.alt, sub.caption)"
+                          tabindex="0"
+                          (keydown.enter)="openImage(sub.src, sub.alt, sub.caption)">
+                    <img [src]="sub.src" [alt]="sub.alt" loading="lazy">
+                    <figcaption>{{ sub.caption }}</figcaption>
+                  </figure>
+                }
+              </div>
+            </div>
+          </article>
+        </div>
+      }
+    </div>
+  </div>
+</section>
