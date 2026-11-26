@@ -1,11 +1,17 @@
-<section class="hero-section">
-  <div class="container">
+<section class="hero-section position-relative overflow-hidden" id="inicio">
+  <!-- EFEITOS DE FUNDO AMBIENTE -->
+  <div class="hero-glow-orb hero-glow-1" aria-hidden="true"></div>
+  <div class="hero-glow-orb hero-glow-2" aria-hidden="true"></div>
+
+  <div class="container position-relative">
     <div class="row align-items-center g-5">
       <div class="col-lg-7">
         <div class="hero-badge-group">
-          <span class="hero-badge highlight"><i class="bi bi-flower1 me-1"></i> Extensão Universitária</span>
+          <span class="hero-badge highlight">
+            <span class="pulse-dot me-1"></span> Extensão Universitária
+          </span>
           <span class="hero-badge">Administração Campus V</span>
-          <span class="hero-badge">Agroecologia & Saúde</span>
+          <span class="hero-badge"><i class="bi bi-heart-pulse-fill text-danger me-1"></i> Agroecologia & Saúde</span>
         </div>
         
         <h1 class="hero-title">
@@ -13,29 +19,52 @@
         </h1>
 
         <p class="hero-lead">
-          Iniciativa de estudantes de Administração aproxima a universidade da comunidade e amplia a visibilidade de quem produz, através do catálogo oficial e oficinas de capacitação prática.
+          Iniciativa inovadora de estudantes de Administração aproxima a universidade da comunidade regional e amplia a visibilidade de quem produz, através do catálogo oficial e oficinas práticas de capacitação.
         </p>
 
         <div class="hero-buttons">
-          <a href="#catalogo" class="btn btn-success btn-lg px-4 py-2 rounded-pill fw-semibold shadow-sm">
-            <i class="bi bi-file-earmark-pdf me-2"></i>Folhear Catálogo
+          <a href="#catalogo" class="btn btn-success btn-lg px-4 py-2 rounded-pill fw-semibold shadow-sm hover-scale">
+            <i class="bi bi-book-half me-2"></i>Folhear Catálogo
           </a>
-          <a href="#galeria" class="btn btn-outline-light btn-lg px-4 py-2 rounded-pill fw-semibold">
+          <a href="#galeria" class="btn btn-outline-light btn-lg px-4 py-2 rounded-pill fw-semibold hover-scale">
             <i class="bi bi-images me-2"></i>Fotos do Projeto
           </a>
-          <a href="https://instagram.com/feiraagrouneb" target="_blank" rel="noopener noreferrer" class="btn btn-outline-warning btn-lg px-4 py-2 rounded-pill fw-semibold">
-            <i class="bi bi-instagram me-1"></i>@feiraagrouneb
+          <a href="https://www.instagram.com/feira_agroecologica_uneb?bqrl=Zm5xdXIzMTQ0aXk0" target="_blank" rel="noopener noreferrer" class="btn btn-outline-warning btn-lg px-4 py-2 rounded-pill fw-semibold shadow-sm hover-scale">
+            <i class="bi bi-instagram me-1"></i>&#64;feira_agroecologica_uneb
           </a>
         </div>
       </div>
 
-      <div class="col-lg-5">
-        <div class="hero-card-preview" (click)="openPreview()" role="button" tabindex="0" (keydown.enter)="openPreview()">
+      <div class="col-lg-5 position-relative">
+        <!-- Card de Prévia em Destaque -->
+        <div class="hero-card-preview shadow-lg hover-lift" (click)="openPreview()" role="button" tabindex="0" (keydown.enter)="openPreview()" title="Clique para ampliar">
           <img src="images/foto-01.jpeg" alt="Projeto da Feira Agroecológica na UNEB Campus V" width="600" height="380" fetchpriority="high">
           <div class="hero-card-preview-overlay">
-            <span class="badge bg-success align-self-start mb-2">Campus V · Santo Antônio de Jesus</span>
+            <span class="badge bg-success align-self-start mb-2 px-3 py-1 rounded-pill">
+              <i class="bi bi-geo-alt-fill me-1"></i> Campus V · Santo Antônio de Jesus
+            </span>
             <h4>Feira Agroecológica UNEB</h4>
             <p>Comercialização direta, produção sustentável e economia solidária.</p>
+          </div>
+          <div class="hero-preview-zoom-hint">
+            <i class="bi bi-zoom-in"></i>
+          </div>
+        </div>
+
+        <!-- Badges Flutuantes Animados -->
+        <div class="hero-floating-badge badge-1 shadow-sm" aria-hidden="true">
+          <i class="bi bi-check-circle-fill text-success fs-5"></i>
+          <div>
+            <strong>100% Saudável</strong>
+            <small class="d-block text-muted">Sem agrotóxicos</small>
+          </div>
+        </div>
+
+        <div class="hero-floating-badge badge-2 shadow-sm" aria-hidden="true">
+          <i class="bi bi-shop text-primary fs-5"></i>
+          <div>
+            <strong>Economia Solidária</strong>
+            <small class="d-block text-muted">Direto do produtor</small>
           </div>
         </div>
       </div>

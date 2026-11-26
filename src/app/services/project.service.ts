@@ -91,7 +91,7 @@ export class ProjectService {
       date: '07 de Outubro',
       description: [
         'O aplicativo WhatsApp foi estruturado como a vitrine viva do empreendedor rural, sem custo e sem burocracia: primeiro o cliente faz o pedido antecipado, depois o produto fresco é colhido, preparado e entregue na feira.',
-        'Também foram abordados os princípios da formação do preço justo e lançado oficialmente o perfil da feira no Instagram: @feiraagrouneb.'
+        'Também foram abordados os princípios da formação do preço justo e lançado oficialmente o perfil da feira no Instagram: @feira_agroecologica_uneb.'
       ],
       steps: ['Mostrar', 'Receber', 'Anotar', 'Confirmar', 'Preparar', 'Entregar'],
       mainPhoto: {

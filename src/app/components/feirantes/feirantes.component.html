@@ -2,41 +2,125 @@
   <div class="container py-4">
     <div class="row text-center justify-content-center">
       <div class="col-lg-8 section-title-wrap">
-        <span class="section-tag">Rede de Produtores</span>
+        <span class="section-tag green"><i class="bi bi-people-fill me-1"></i> Rede Agroecológica</span>
         <h2 class="section-title">Quem Faz a Feira Acontecer</h2>
         <div class="section-bar center"></div>
         <p class="section-subtitle">
-          Conheça as organizações coletivas e os empreendedores que trazem sabor, saúde, criatividade e economia solidária para a UNEB Campus V.
+          Conheça as organizações coletivas e os produtores individuais que trazem sabor, saúde, criatividade e economia solidária para a UNEB Campus V.
         </p>
       </div>
     </div>
 
-    <!-- 4 Organizações Coletivas -->
-    <h4 class="fw-bold text-navy mb-3"><i class="bi bi-diagram-3-fill text-primary me-2"></i>Organizações Coletivas</h4>
-    <div class="row g-4">
-      @for (org of organizations(); track org.name) {
-        <div class="col-md-6 col-lg-3">
-          <div class="org-card">
-            <span class="org-card-origin">{{ org.origin }} · {{ org.since }}</span>
-            <h4>{{ org.name }}</h4>
-            <p>{{ org.description }}</p>
+    <!-- BARRA INTERATIVA DE BUSCA E FILTROS -->
+    <div class="feirantes-toolbar card border-0 shadow-sm rounded-4 p-3 mb-4 bg-white">
+      <div class="row g-3 align-items-center">
+        <!-- Input de Busca -->
+        <div class="col-lg-6">
+          <div class="input-group">
+            <span class="input-group-text bg-transparent border-end-0 text-muted">
+              <i class="bi bi-search"></i>
+            </span>
+            <input type="text" 
+                   class="form-control border-start-0 ps-0 shadow-none" 
+                   placeholder="Buscar por nome, cidade ou produto (ex: cacau, geleia, crochê)..."
+                   [ngModel]="searchQuery()"
+                   (ngModelChange)="searchQuery.set($event)">
+            @if (searchQuery()) {
+              <button class="btn btn-outline-secondary border-start-0" type="button" (click)="clearSearch()">
+                <i class="bi bi-x-circle-fill"></i>
+              </button>
+            }
           </div>
         </div>
-      }
-    </div>
 
-    <!-- 8 Empreendedores -->
-    <div class="card border-0 shadow-sm rounded-4 mt-5 p-4 bg-white">
-      <h4 class="fw-bold text-navy mb-2"><i class="bi bi-person-hearts text-success me-2"></i>Empreendedores e Especialidades</h4>
-      <p class="text-muted small">Profissionais e famílias participantes da Feira Agroecológica que você encontra quinzenalmente no Campus V:</p>
-
-      <div class="entrepreneurs-pills">
-        @for (emp of entrepreneurs(); track emp.name) {
-          <div class="entrepreneur-pill">
-            <strong>{{ emp.name }}</strong> {{ emp.specialty }}
-          </div>
-        }
+        <!-- Filtros Rápidos -->
+        <div class="col-lg-6 d-flex flex-wrap gap-2 justify-content-lg-end">
+          <button class="btn btn-sm rounded-pill px-3 fw-semibold"
+                  [class.btn-primary]="selectedType() === 'todos'"
+                  [class.btn-outline-primary]="selectedType() !== 'todos'"
+                  (click)="setType('todos')">
+            Todos ({{ rawOrganizations().length + rawEntrepreneurs().length }})
+          </button>
+          <button class="btn btn-sm rounded-pill px-3 fw-semibold"
+                  [class.btn-primary]="selectedType() === 'coletivos'"
+                  [class.btn-outline-primary]="selectedType() !== 'coletivos'"
+                  (click)="setType('coletivos')">
+            <i class="bi bi-diagram-3-fill me-1"></i> Coletivos ({{ rawOrganizations().length }})
+          </button>
+          <button class="btn btn-sm rounded-pill px-3 fw-semibold"
+                  [class.btn-primary]="selectedType() === 'individuais'"
+                  [class.btn-outline-primary]="selectedType() !== 'individuais'"
+                  (click)="setType('individuais')">
+            <i class="bi bi-person-fill me-1"></i> Individuais ({{ rawEntrepreneurs().length }})
+          </button>
+        </div>
       </div>
     </div>
+
+    <!-- ORGANIZAÇÕES COLETIVAS -->
+    @if (filteredOrganizations().length > 0) {
+      <div class="mb-5">
+        <h4 class="fw-bold text-navy mb-3 d-flex align-items-center">
+          <i class="bi bi-diagram-3-fill text-primary me-2"></i>
+          Organizações Coletivas
+          <span class="badge bg-primary-subtle text-primary ms-2 fs-6 rounded-pill">
+            {{ filteredOrganizations().length }}
+          </span>
+        </h4>
+        <div class="row g-4">
+          @for (org of filteredOrganizations(); track org.name) {
+            <div class="col-md-6 col-lg-3">
+              <div class="org-card h-100 hover-lift">
+                <span class="org-card-origin">
+                  <i class="bi bi-geo-alt-fill text-success me-1"></i>{{ org.origin }} · {{ org.since }}
+                </span>
+                <h4>{{ org.name }}</h4>
+                <p>{{ org.description }}</p>
+                <div class="mt-auto pt-2">
+                  <span class="badge bg-success-subtle text-success rounded-pill px-2 py-1 small">
+                    <i class="bi bi-check-circle me-1"></i> Agroecológico
+                  </span>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    <!-- EMPREENDEDORES INDIVIDUAIS -->
+    @if (filteredEntrepreneurs().length > 0) {
+      <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
+        <h4 class="fw-bold text-navy mb-2 d-flex align-items-center">
+          <i class="bi bi-person-hearts text-success me-2"></i>
+          Empreendedores e Especialidades
+          <span class="badge bg-success-subtle text-success ms-2 fs-6 rounded-pill">
+            {{ filteredEntrepreneurs().length }}
+          </span>
+        </h4>
+        <p class="text-muted small mb-3">Profissionais e famílias participantes da Feira Agroecológica que você encontra quinzenalmente no Campus V:</p>
+
+        <div class="entrepreneurs-pills">
+          @for (emp of filteredEntrepreneurs(); track emp.name) {
+            <div class="entrepreneur-pill hover-scale">
+              <span class="entrepreneur-name">{{ emp.name }}</span>
+              <span class="entrepreneur-spec">{{ emp.specialty }}</span>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    <!-- Nenhum resultado na busca -->
+    @if (totalMatches() === 0) {
+      <div class="text-center py-5 bg-white rounded-4 shadow-sm">
+        <i class="bi bi-search text-muted fs-1 mb-3 d-block"></i>
+        <h5 class="fw-bold text-navy">Nenhum produtor encontrado para "{{ searchQuery() }}"</h5>
+        <p class="text-muted small">Tente buscar por termos como "cacau", "artesanato", "sabonetes", "crochê" ou limpe a busca.</p>
+        <button class="btn btn-outline-primary btn-sm rounded-pill px-4" (click)="clearSearch()">
+          Limpar busca
+        </button>
+      </div>
+    }
   </div>
 </section>

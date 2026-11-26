@@ -2,11 +2,11 @@
   <div class="container py-4">
     <div class="row text-center justify-content-center">
       <div class="col-lg-8 section-title-wrap">
-        <span class="section-tag">Registro Audiovisual</span>
+        <span class="section-tag green"><i class="bi bi-camera-reels me-1"></i> Registro Audiovisual</span>
         <h2 class="section-title">Vídeo do Projeto</h2>
         <div class="section-bar center"></div>
         <p class="section-subtitle">
-          Assista à apresentação audiovisual sobre o projeto de extensão, suas oficinas e o impacto na Feira Agroecológica.
+          Assista à apresentação audiovisual sobre o projeto de extensão, suas oficinas e o impacto transformador na Feira Agroecológica da UNEB.
         </p>
       </div>
     </div>
@@ -14,25 +14,66 @@
     <div class="row justify-content-center">
       <!-- Aba Única de Vídeo: Legenda - Sobre o projeto -->
       <div class="col-lg-8 col-xl-7">
-        <div class="video-card shadow-sm">
-          <div class="video-screen">
-            <div class="video-play-btn">
+        <div class="video-card shadow hover-lift">
+          <div class="video-screen" (click)="openVideoModal()" role="button" tabindex="0" (keydown.enter)="openVideoModal()" title="Clique para assistir">
+            <img src="images/foto-02.jpeg" alt="Vídeo: Sobre o projeto" class="video-screen-bg" loading="lazy">
+            <div class="video-screen-backdrop"></div>
+            
+            <!-- Botão Play Pulsante -->
+            <div class="video-play-btn pulse-glow">
               <i class="bi bi-play-fill"></i>
             </div>
+            
+            <div class="video-screen-badge">
+              <i class="bi bi-play-circle-fill me-1"></i> Reproduzir Vídeo
+            </div>
           </div>
+
           <div class="video-content text-center py-4 px-4">
-            <span class="badge bg-success mb-2 px-3 py-2 rounded-pill">Extensão UNEB Campus V</span>
+            <span class="badge bg-success-subtle text-success mb-2 px-3 py-2 rounded-pill fw-bold">
+              <i class="bi bi-mortarboard me-1"></i> Extensão UNEB Campus V
+            </span>
             <h4 class="fw-bold text-navy mb-2">Sobre o projeto</h4>
             <p class="text-muted mb-3">
-              Documentário e cobertura com depoimentos dos feirantes, registros das oficinas de capacitação e a trajetória do catálogo oficial da Feira Agroecológica.
+              Documentário e cobertura com depoimentos dos feirantes, registros das oficinas práticas de capacitação e a trajetória de criação do catálogo oficial da Feira Agroecológica.
             </p>
             <div class="d-inline-flex align-items-center gap-2 bg-light border rounded-pill px-3 py-2 text-muted small">
               <i class="bi bi-youtube text-danger fs-5"></i>
-              <span>Espaço reservado para colar o link do YouTube</span>
+              <span>Clique no card acima para assistir à reprodução</span>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- MODAL DE VÍDEO INTERATIVO -->
+  @if (isModalOpen()) {
+    <div class="video-modal-backdrop" (click)="closeVideoModal()" role="dialog" aria-modal="true">
+      <div class="video-modal-dialog" (click)="$event.stopPropagation()">
+        <button class="video-modal-close" (click)="closeVideoModal()" aria-label="Fechar vídeo">
+          <i class="bi bi-x-lg"></i>
+        </button>
+        <div class="video-modal-body">
+          <div class="ratio ratio-16x9">
+            <!-- Frame oficial com fallback elegante -->
+            <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1" 
+                    title="Vídeo Sobre o Projeto - Feira Agroecológica UNEB" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+        <div class="video-modal-footer p-3 bg-white d-flex justify-content-between align-items-center">
+          <div>
+            <h6 class="fw-bold mb-0 text-navy">Sobre o projeto</h6>
+            <small class="text-muted">Feira Agroecológica · UNEB Campus V</small>
+          </div>
+          <button class="btn btn-sm btn-outline-secondary rounded-pill px-3" (click)="closeVideoModal()">
+            Fechar
+          </button>
+        </div>
+      </div>
+    </div>
+  }
 </section>

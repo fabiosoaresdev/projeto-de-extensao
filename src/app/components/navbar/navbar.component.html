@@ -1,12 +1,21 @@
+<!-- BARRA DE PROGRESSO DE ROLAGEM DINÂMICA -->
+<div class="reading-progress-track" aria-hidden="true">
+  <div class="reading-progress-bar" [style.width.%]="scrollProgress()"></div>
+</div>
+
 <!-- TOPBAR INSTITUCIONAL DCH -->
 <div class="dch-topbar d-none d-lg-block">
   <div class="container d-flex justify-content-between align-items-center">
     <div class="dch-topbar-info">
-      <span><i class="bi bi-geo-alt-fill"></i> UNEB Campus V | Rua Tenente Coronel Bandeira de Melo, s/n°, Calabar, Santo Antônio de Jesus - BA</span>
+      <span><i class="bi bi-geo-alt-fill text-warning me-1"></i> UNEB Campus V · Santo Antônio de Jesus - BA</span>
+      <span class="ms-3 d-none d-xl-inline"><i class="bi bi-mortarboard-fill text-success me-1"></i> Colegiado de Administração</span>
     </div>
     <div class="d-flex align-items-center gap-3">
-      <span><i class="bi bi-mortarboard-fill text-success"></i> Colegiado de Administração</span>
-      <a href="https://dch.saj.uneb.br/" target="_blank" rel="noopener noreferrer" class="text-decoration-none">
+      <a href="https://www.instagram.com/feira_agroecologica_uneb?bqrl=Zm5xdXIzMTQ0aXk0" target="_blank" rel="noopener noreferrer" class="topbar-insta-link">
+        <span class="pulse-dot me-1"></span>
+        <i class="bi bi-instagram me-1 text-warning"></i>&#64;feira_agroecologica_uneb
+      </a>
+      <a href="https://dch.saj.uneb.br/" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-light opacity-75 hover-opacity-100">
         <i class="bi bi-box-arrow-up-right me-1"></i>Portal DCH V
       </a>
     </div>
@@ -15,47 +24,47 @@
 
 <!-- NAVBAR PRINCIPAL -->
 <header class="sticky-top main-navbar" [class.navbar-scrolled]="isScrolled()">
-  <nav class="navbar navbar-expand-lg">
+  <nav class="navbar navbar-expand-xl py-0">
     <div class="container">
       <!-- Logo e Identidade DCH -->
-      <a class="navbar-brand" href="#inicio">
-        <img src="images/logo_uneb.svg" alt="Logo UNEB" class="navbar-brand-logo" width="140" height="52">
-        <div class="navbar-brand-text">
+      <a class="navbar-brand d-flex align-items-center" href="#inicio">
+        <img src="images/logo_uneb.svg" alt="Logo UNEB" class="navbar-brand-logo" width="130" height="48">
+        <div class="navbar-brand-text d-none d-sm-flex">
           <span class="navbar-brand-title">DCH V · UNEB</span>
-          <span class="navbar-brand-subtitle">Departamento de Ciências Humanas</span>
+          <span class="navbar-brand-subtitle d-none d-md-block">Feira Agroecológica</span>
         </div>
       </a>
 
       <!-- Botão Mobile -->
-      <button class="navbar-toggler border-0 shadow-none" type="button" (click)="toggleMobileMenu()" aria-label="Alternar navegação">
-        <i class="bi bi-list fs-2 text-primary"></i>
+      <button class="navbar-toggler border-0 shadow-none px-2" type="button" (click)="toggleMobileMenu()" aria-label="Alternar navegação" [attr.aria-expanded]="isMobileMenuOpen()">
+        <i class="bi" [class.bi-list]="!isMobileMenuOpen()" [class.bi-x-lg]="isMobileMenuOpen()" style="font-size: 1.75rem; color: var(--dch-navy);"></i>
       </button>
 
       <!-- Menu de Navegação -->
       <div class="collapse navbar-collapse" [class.show]="isMobileMenuOpen()" id="navbarContent">
-        <ul class="navbar-nav ms-auto align-items-lg-center">
+        <ul class="navbar-nav ms-auto align-items-xl-center">
           <li class="nav-item">
-            <a class="nav-link" href="#inicio" (click)="closeMobileMenu()">Início</a>
+            <a class="nav-link" [class.active]="activeSection() === 'inicio'" href="#inicio" (click)="closeMobileMenu()">Início</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#sobre" (click)="closeMobileMenu()">O Projeto</a>
+            <a class="nav-link" [class.active]="activeSection() === 'sobre'" href="#sobre" (click)="closeMobileMenu()">O Projeto</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#oficinas" (click)="closeMobileMenu()">Oficinas</a>
+            <a class="nav-link" [class.active]="activeSection() === 'oficinas'" href="#oficinas" (click)="closeMobileMenu()">Oficinas</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#catalogo" (click)="closeMobileMenu()">Catálogo</a>
+            <a class="nav-link" [class.active]="activeSection() === 'catalogo'" href="#catalogo" (click)="closeMobileMenu()">Catálogo</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#feirantes" (click)="closeMobileMenu()">Quem Faz a Feira</a>
+            <a class="nav-link" [class.active]="activeSection() === 'feirantes'" href="#feirantes" (click)="closeMobileMenu()">Quem Faz a Feira</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#galeria" (click)="closeMobileMenu()">Galeria</a>
+            <a class="nav-link" [class.active]="activeSection() === 'galeria'" href="#galeria" (click)="closeMobileMenu()">Galeria</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#videos" (click)="closeMobileMenu()">Vídeo</a>
+            <a class="nav-link" [class.active]="activeSection() === 'videos'" href="#videos" (click)="closeMobileMenu()">Vídeo</a>
           </li>
-          <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+          <li class="nav-item ms-xl-2 my-2 my-xl-0">
             <a href="#catalogo" class="btn btn-success btn-nav-action text-white" (click)="closeMobileMenu()">
               <i class="bi bi-book-half me-1"></i> Ver Catálogo
             </a>

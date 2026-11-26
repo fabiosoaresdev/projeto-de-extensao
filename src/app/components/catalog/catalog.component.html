@@ -2,29 +2,96 @@
   <div class="container">
     <div class="row align-items-end justify-content-between mb-4">
       <div class="col-lg-7">
-        <span class="section-tag">Publicação Oficial</span>
+        <span class="section-tag green"><i class="bi bi-journal-bookmark me-1"></i> Publicação Oficial</span>
         <h2 class="section-title mb-2">Folheie o Catálogo da Feira</h2>
         <div class="section-bar"></div>
         <p class="text-muted mb-0">
-          Conheça as histórias, métodos de cultivo, artesanatos e canais diretos de contato dos produtores e organizações coletivas. Clique em qualquer página para ampliar.
+          Experiência interativa digital: navegue pelas páginas oficiais do catálogo, conheça as histórias, métodos de cultivo ecológico e os canais diretos de contato dos produtores.
         </p>
       </div>
-      <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
-        <button type="button" class="btn btn-primary rounded-pill px-4 fw-semibold me-2 shadow-sm" (click)="downloadCatalog()">
-          <i class="bi bi-download me-1"></i> Baixar Catálogo (PDF)
+      <div class="col-lg-5 text-lg-end mt-3 mt-lg-0 d-flex flex-wrap gap-2 justify-content-lg-end align-items-center">
+        <button type="button" class="btn btn-primary rounded-pill px-4 fw-semibold shadow-sm hover-scale" (click)="openFullscreen()">
+          <i class="bi bi-arrows-fullscreen me-1"></i> Ver em Tela Cheia
         </button>
-        <a href="https://instagram.com/feiraagrouneb" target="_blank" rel="noopener noreferrer" class="btn btn-outline-success rounded-pill px-3 fw-semibold">
-          <i class="bi bi-instagram me-1"></i> @feiraagrouneb
+        <a href="https://www.instagram.com/feira_agroecologica_uneb?bqrl=Zm5xdXIzMTQ0aXk0" target="_blank" rel="noopener noreferrer" class="btn btn-outline-success rounded-pill px-3 fw-semibold hover-scale">
+          <i class="bi bi-instagram me-1"></i> &#64;feira_agroecologica_uneb
         </a>
       </div>
     </div>
 
-    <!-- Tira de páginas do catálogo com lightbox -->
+    <!-- FOLHEADOR INTERATIVO DIGITAL (DESTAQUE VIVO) -->
+    <div class="catalog-viewer-card mb-4 shadow-sm">
+      <div class="row g-0 align-items-center">
+        <div class="col-lg-7 text-center position-relative p-3 p-md-4 catalog-viewer-display">
+          <!-- Botão Anterior -->
+          <button class="catalog-arrow-btn prev" (click)="prevPage()" aria-label="Página anterior">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+
+          <!-- Imagem da Página Ativa -->
+          <div class="catalog-page-frame" (click)="openFullscreen()" title="Clique para ampliar em tela cheia">
+            <img [src]="currentPage().src" [alt]="currentPage().title" class="img-fluid catalog-active-img shadow" loading="eager">
+            <div class="catalog-zoom-hint">
+              <i class="bi bi-zoom-in me-1"></i> Clique para ampliar
+            </div>
+          </div>
+
+          <!-- Botão Próximo -->
+          <button class="catalog-arrow-btn next" (click)="nextPage()" aria-label="Próxima página">
+            <i class="bi bi-chevron-right"></i>
+          </button>
+        </div>
+
+        <div class="col-lg-5 p-4 p-xl-5 catalog-viewer-info">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill fw-bold">
+              {{ currentPage().label }} ({{ activeIndex() + 1 }} de {{ catalogPages().length }})
+            </span>
+            <button class="btn btn-sm btn-outline-secondary rounded-pill px-3" (click)="toggleAutoPlay()">
+              <i class="bi" [class.bi-play-fill]="!isAutoPlaying()" [class.bi-pause-fill]="isAutoPlaying()"></i>
+              {{ isAutoPlaying() ? 'Pausar' : 'Folhear Auto' }}
+            </button>
+          </div>
+
+          <h3 class="fw-bold text-navy mb-3">{{ currentPage().title }}</h3>
+          <p class="text-muted leading-relaxed mb-4">
+            Página integrante do material editorial desenvolvido pelos estudantes de Administração da UNEB Campus V na disciplina de Gestão da Inovação Tecnológica, valorizando a economia solidária e a comunicação direta produtor-consumidor.
+          </p>
+
+          <div class="d-flex flex-wrap gap-2 mb-4">
+            <button class="btn btn-outline-primary btn-sm rounded-pill px-3" (click)="prevPage()">
+              <i class="bi bi-arrow-left me-1"></i> Anterior
+            </button>
+            <button class="btn btn-primary btn-sm rounded-pill px-3" (click)="nextPage()">
+              Próxima <i class="bi bi-arrow-right ms-1"></i>
+            </button>
+            <button class="btn btn-success btn-sm rounded-pill px-3" (click)="openFullscreen()">
+              <i class="bi bi-arrows-fullscreen me-1"></i> Tela Cheia
+            </button>
+          </div>
+
+          <div class="catalog-indicator-dots d-flex gap-1 flex-wrap">
+            @for (p of catalogPages(); track p.pageNumber; let i = $index) {
+              <button class="catalog-dot" [class.active]="i === activeIndex()" (click)="selectPage(i)" [attr.aria-label]="'Ir para página ' + (i+1)"></button>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIRA DE MINIATURAS INTERATIVAS -->
+    <div class="catalog-strip-header d-flex justify-content-between align-items-center mb-2">
+      <span class="text-muted small fw-semibold"><i class="bi bi-collection me-1"></i> Todas as 12 páginas em miniatura (clique para selecionar):</span>
+    </div>
+
     <div class="catalog-strip">
       @for (page of catalogPages(); track page.pageNumber; let i = $index) {
-        <div class="catalog-page-item" (click)="openPage(i)" tabindex="0" (keydown.enter)="openPage(i)">
+        <div class="catalog-page-item" [class.selected]="i === activeIndex()" (click)="selectPage(i)" tabindex="0" (keydown.enter)="selectPage(i)">
           <img [src]="page.src" [alt]="page.title" loading="lazy">
           <div class="page-label">{{ page.label }}</div>
+          @if (i === activeIndex()) {
+            <div class="page-active-badge"><i class="bi bi-eye-fill"></i></div>
+          }
         </div>
       }
     </div>
